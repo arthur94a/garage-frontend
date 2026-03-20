@@ -1,9 +1,13 @@
 //START DA APLICAÇÃO
 
+import { Login } from "./components/login"
+
 function App() {
 
   return (
-    <div>START</div>
+    <>
+      <Login />
+    </>
   )
 }
 
