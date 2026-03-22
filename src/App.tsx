@@ -1,13 +1,14 @@
 //START DA APLICAÇÃO
 
-import { Login } from "./components/login"
+import { UserContextProvider } from "./context/userContext/userContextProvider"
+import { Header } from "./components/header"
 
 function App() {
 
   return (
-    <>
-      <Login />
-    </>
+    <UserContextProvider>
+      <Header />
+    </UserContextProvider>
   )
 }
 
