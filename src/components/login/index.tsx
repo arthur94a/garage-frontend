@@ -1,11 +1,11 @@
 import axiosApi from "@/configs/axiosApi"
 import { useState } from "react"
-import { useThemeContext } from "@/context/userContext/hook/useUserContext"
+import { useUserContext } from "@/context/userContext/hook/useUserContext"
 
 export function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { userLogin } = useThemeContext()
+    const { userLogin } = useUserContext()
 
     function handleSubmitLogin(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()

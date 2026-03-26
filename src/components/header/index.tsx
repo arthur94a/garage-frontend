@@ -1,10 +1,17 @@
 import { useState } from "react"
 import { Login } from "../login"
 import { CreateUser } from "../login/createUser"
+import { useUserContext } from "@/context/userContext/hook/useUserContext"
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter"
 
 export function Header() {
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
+    const { user, userLogout } = useUserContext()
+
+    const userLoggedIn = user.login
+
+    console.log(userLoggedIn)
 
     function toggleLogin() {
         setShowLogin(!showLogin)
@@ -19,16 +26,31 @@ export function Header() {
     return (
         <>
             <header>
-                <h1>Garage</h1>
+                <nav>
+                    {!userLoggedIn && (
+                        <>
+                            <button onClick={toggleLogin}>Login</button>
+                            <button onClick={toggleRegister}>Registrar</button>
+                        </>
+                    )}
 
-                <div>
-                    <button onClick={toggleLogin}>Login</button>
-                    <button onClick={toggleRegister}>Registrar</button>
-                </div>
+                    {userLoggedIn && (
+                        <button onClick={userLogout}>Logout</button>
+                    )}
+                </nav>
+
+                <h1>Garage</h1>
+                
+                {userLoggedIn && (
+                    <div>
+                        Bem-vindo {capitalizeFirstLetter(user.name)}
+                    </div>
+                )}
             </header>
 
-            {showLogin && <Login />}
-            {showRegister && <CreateUser />}
+            
+            {!userLoggedIn && showLogin && <Login />}
+            {!userLoggedIn && showRegister && <CreateUser />}
         </>
     )
 }
