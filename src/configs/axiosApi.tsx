@@ -10,8 +10,8 @@ const axiosApi = axios.create({
 // 🔥 Interceptor de resposta
 axiosApi.interceptors.response.use(
   (response) => {
-    // sucesso → retorna só os dados
-    return response.data;
+    // sucesso → retorna resposta
+    return response;
   },
   (error) => {
     // erro → trata globalmente

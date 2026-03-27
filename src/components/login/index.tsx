@@ -15,7 +15,8 @@ export function Login() {
     async function validateLogin(email: string, password: string) {
         try {
             const response = await axiosApi.post("/users/login", { email, password })
-            const {id, name} = response.data
+            const {id, name} = response.data.data
+            console.log(response)
             userLogin({ user_id: id, email, name, login: true })
         } catch (error) {
             console.error(error)

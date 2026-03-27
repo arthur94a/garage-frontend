@@ -10,7 +10,7 @@ export function CreateUser() {
     async function createUser() {
         try {
             const response = await axiosApi.post("/users/create", { name, email, password })
-            console.log(response.data)
+            return response
         } catch (error) {
             console.error("Erro ao criar usuário:", error)
         }
