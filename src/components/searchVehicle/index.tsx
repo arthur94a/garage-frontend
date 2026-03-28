@@ -1,35 +1,28 @@
 import { useState } from "react"
-import axiosApi from "@/configs/axiosApi"
 
-type VehicleType = 'cars' | 'motorcyles' | 'trucks'
+import { FormSelect } from "./formSelect"
+import { asyncGetBrands } from "./functions/asyncGetBrands"
 
-type Brand = {
+export type VehicleType = 'cars' | 'motorcycles' | 'trucks'
+
+export type Brand = {
   brand_code: number
   brand_name: string
   vehicle_type: VehicleType
 }
 
 export function SearchVehicle() {
-    const [vehicleType, setVehicleType] = useState('cars')
+    const [vehicleType, setVehicleType] = useState<VehicleType>('cars')
     const [brands, setBrands] = useState<Brand[]>([])
+    const hasBrands = brands.length > 0
 
-    function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-        const currentTypeValue = e.currentTarget.value
+    async function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
+        const currentTypeValue = e.currentTarget.value as VehicleType
         setVehicleType(currentTypeValue)
 
-        getBrands(currentTypeValue)
+        const updateBrands = await asyncGetBrands(currentTypeValue)
+        if (updateBrands) setBrands(updateBrands)
     }
-
-    async function getBrands(type: string) {
-        try {
-            const response = await axiosApi.get<Brand[]>(`/catch/${type}/brands/`)
-            setBrands(response.data)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    console.log('brands:', brands)
 
     return (
         <section>
@@ -45,13 +38,7 @@ export function SearchVehicle() {
                 buscando por: <span>{vehicleType}</span>
             </div>
 
-            <ul>
-                {brands.map(brand => {
-                    return (
-                        <li key={brand.brand_code}>{brand.brand_name}</li>
-                    )
-                })}
-            </ul>
+            {hasBrands && <FormSelect type={vehicleType} brands={brands} />}
         </section>
     )
 }
