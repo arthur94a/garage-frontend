@@ -111,3 +111,16 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+button,
+select,
+option {
+  cursor: pointer;
+}
+
+select {
+  padding: 4px 16px;
+  outline: 1px solid gray;
+  border-radius: 8px;
+  color: #fff;
+}

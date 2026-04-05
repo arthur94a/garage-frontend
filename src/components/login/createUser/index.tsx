@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axiosApi from '@/configs/axiosApi'
+import { Button } from '@/components/button'
 
 
 export function CreateUser() {
@@ -28,7 +29,7 @@ export function CreateUser() {
             <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} />
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button type="submit">Criar conta</button>
+            <Button theme="purple" type="submit">Criar conta</Button>
         </form>
     )
 }

@@ -3,6 +3,8 @@ import { asyncGetModels } from "./functions/asyncGetModels"
 import type { Brand, VehicleType } from "."
 import { asyncGetYears } from "./functions/asyncGetYears"
 import { asyncGetVehicle } from "./functions/asyncSearchVehicle"
+import { Button } from "../button"
+import { Vehicle } from "./vehicle"
 
 type Model = {
     created_at: string,
@@ -23,7 +25,7 @@ type Year = {
     vehicle_type: VehicleType
 }
 
-type Vehicle = {
+export type Vehicle = {
     id: string,
     year_code: string,
     year: number,
@@ -48,8 +50,6 @@ export function FormSelect({type, brands}: FormSelectProps) {
     const [models, setModels] = useState<Model[]>([])
     const [years, setYears] = useState<Year[]>([])
     const [vehicle, setVehicle] = useState<Vehicle | null>(null)
-    const hasModels = models.length > 0
-    const hasYears = years.length > 0
 
     async function handleBrandChange(e: React.ChangeEvent<HTMLSelectElement>) {
         setSelectedBrand(e.target.value)
@@ -80,6 +80,19 @@ export function FormSelect({type, brands}: FormSelectProps) {
         if (data) setVehicle(data)
     }
 
+    function translateVehicleType(type: VehicleType) {
+        switch (type) {
+            case 'cars':
+                return 'carros'
+            case 'motorcycles':
+                return 'motos'
+            case 'trucks':
+                return 'caminhões'
+            default:
+                return ''
+        }
+    }
+
     useEffect(() => {
         const resetForm = () => {
             setSelectedBrand('')
@@ -94,9 +107,13 @@ export function FormSelect({type, brands}: FormSelectProps) {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit}>
+            <form action="" id="search-vehicle-form" onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-xl">
+                <h2>
+                    Buscando por <span>{translateVehicleType(type)}</span>
+                </h2>
+
                 <div>
-                    <select value={selectedBrand} onChange={handleBrandChange}>
+                    <select name="brand" value={selectedBrand} onChange={handleBrandChange} className="w-full">
                         <option value="">Selecione a marca</option>
                         {brands.map(brand => (
                             <option key={brand.brand_code} value={brand.brand_code}>{brand.brand_name}</option>
@@ -104,42 +121,28 @@ export function FormSelect({type, brands}: FormSelectProps) {
                     </select>
                 </div>
 
-                {hasModels && (
-                    <div>
-                        <select value={selectedModel} onChange={handleModelChange}>
-                            <option value="">Selecione o modelo</option>
-                            {models.map(model => (
-                                <option key={model.model_code} value={model.model_code}>{model.model_name}</option>
-                            ))}
-                        </select>
-                    </div>
-                )}
+                <div>
+                    <select name="model" value={selectedModel} onChange={handleModelChange} className="w-full">
+                        <option value="">Selecione o modelo</option>
+                        {models.map(model => (
+                            <option key={model.model_code} value={model.model_code}>{model.model_name}</option>
+                        ))}
+                    </select>
+                </div>
+                
+                <div>
+                    <select name="year" value={selectedYear} onChange={(e) => { setSelectedYear(e.target.value); setVehicle(null) }} className="w-full">
+                        <option value="">Selecione o ano</option>
+                        {years.map(year => (
+                            <option key={year.year_code} value={year.year_code}>{year.year_name}</option>
+                        ))}
+                    </select>
+                </div>
 
-                {hasYears && (
-                    <div>
-                        <select value={selectedYear} onChange={(e) => { setSelectedYear(e.target.value); setVehicle(null) }}>
-                            <option value="">Selecione o ano</option>
-                            {years.map(year => (
-                                <option key={year.year_code} value={year.year_code}>{year.year_name}</option>
-                            ))}
-                        </select>
-                    </div>
-                )}
-
-                <button type="submit" disabled={!selectedBrand || !selectedModel || !selectedYear}>Pesquisar</button>
+                <Button theme="green" type="submit" disabled={!selectedBrand || !selectedModel || !selectedYear}>Pesquisar</Button>
             </form>
 
-            {vehicle && (
-                <div>
-                    <h3>Resultado</h3>
-                    <p><strong>Marca:</strong> {vehicle.brand}</p>
-                    <p><strong>Modelo:</strong> {vehicle.model}</p>
-                    <p><strong>Ano:</strong> {vehicle.year}</p>
-                    <p><strong>Combustível:</strong> {vehicle.fuel}</p>
-                    <p><strong>Código FIPE:</strong> {vehicle.id}</p>
-                    <p><strong>Preço:</strong> {vehicle.price}</p>
-                </div>
-            )}
+            {vehicle && <Vehicle vehicleObj={vehicle} />}
         </>
     )
 }

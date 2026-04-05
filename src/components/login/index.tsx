@@ -1,6 +1,7 @@
 import axiosApi from "@/configs/axiosApi"
 import { useState } from "react"
 import { useUserContext } from "@/context/userContext/hook/useUserContext"
+import { Button } from "../button"
 
 export function Login() {
     const [email, setEmail] = useState("")
@@ -27,7 +28,7 @@ export function Login() {
         <form onSubmit={handleSubmitLogin}>
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button type="submit">Entrar</button>
+            <Button theme="purple" type="submit">Entrar</Button>
         </form>
     )
 }

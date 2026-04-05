@@ -3,6 +3,7 @@ import { Login } from "../login"
 import { CreateUser } from "../login/createUser"
 import { useUserContext } from "@/context/userContext/hook/useUserContext"
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter"
+import { Button } from "../button"
 
 export function Header() {
     const [showLogin, setShowLogin] = useState(false)
@@ -29,13 +30,13 @@ export function Header() {
                 <nav>
                     {!userLoggedIn && (
                         <>
-                            <button onClick={toggleLogin}>Login</button>
-                            <button onClick={toggleRegister}>Registrar</button>
+                            <Button theme="ghost-purple" onClick={toggleLogin}>Login</Button>
+                            <Button theme="ghost-purple" onClick={toggleRegister}>Registrar</Button>
                         </>
                     )}
 
                     {userLoggedIn && (
-                        <button onClick={userLogout}>Logout</button>
+                        <Button theme="red" onClick={userLogout}>Logout</Button>
                     )}
                 </nav>
 
