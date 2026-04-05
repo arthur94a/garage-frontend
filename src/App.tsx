@@ -1,4 +1,5 @@
 //START DA APLICAÇÃO
+import { Footer } from "./components/footer"
 import { Header } from "./components/header"
 import { SearchVehicle } from "./components/searchVehicle"
 
@@ -10,6 +11,8 @@ function App() {
       <main>
         <SearchVehicle />
       </main>
+
+      <Footer />
     </>
   )
 }

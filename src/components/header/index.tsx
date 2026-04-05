@@ -12,8 +12,6 @@ export function Header() {
 
     const userLoggedIn = user.login
 
-    console.log(userLoggedIn)
-
     function toggleLogin() {
         setShowLogin(!showLogin)
         setShowRegister(false)
@@ -26,7 +24,7 @@ export function Header() {
     
     return (
         <>
-            <header>
+            <header className="py-4">
                 <nav>
                     {!userLoggedIn && (
                         <>
@@ -34,24 +32,22 @@ export function Header() {
                             <Button theme="ghost-purple" onClick={toggleRegister}>Registrar</Button>
                         </>
                     )}
-
-                    {userLoggedIn && (
-                        <Button theme="red" onClick={userLogout}>Logout</Button>
-                    )}
                 </nav>
 
-                <h1>Garage</h1>
-                
                 {userLoggedIn && (
-                    <div>
-                        Bem-vindo {capitalizeFirstLetter(user.name)}
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-white">Bem-vindo {capitalizeFirstLetter(user.name)}</span>
+                        <Button theme="red" onClick={userLogout}>Logout</Button>
                     </div>
                 )}
-            </header>
+                
+                <div className="h-10">
+                    {!userLoggedIn && showLogin && <Login />}
+                    {!userLoggedIn && showRegister && <CreateUser />}
+                </div>
 
-            
-            {!userLoggedIn && showLogin && <Login />}
-            {!userLoggedIn && showRegister && <CreateUser />}
+                <h1>Garage</h1>
+            </header>
         </>
     )
 }
