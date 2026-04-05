@@ -4,10 +4,12 @@ import { CreateUser } from "../login/createUser"
 import { useUserContext } from "@/context/userContext/hook/useUserContext"
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter"
 import { Button } from "../button"
+import { DeleteUser } from "../login/deleteUser"
 
 export function Header() {
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
+
     const { user, userLogout } = useUserContext()
 
     const userLoggedIn = user.login
@@ -35,9 +37,13 @@ export function Header() {
                 </nav>
 
                 {userLoggedIn && (
-                    <div className="flex flex-col items-center gap-2">
-                        <span className="text-white">Bem-vindo {capitalizeFirstLetter(user.name)}</span>
-                        <Button theme="red" onClick={userLogout}>Logout</Button>
+                    <div className="flex flex-row items-center justify-between gap-2 px-4">
+                        <DeleteUser />
+
+                        <div className="flex items-center gap-4">
+                            <span className="text-white">{capitalizeFirstLetter(user.name)}</span>
+                            <Button theme="red" onClick={userLogout}>Logout</Button>
+                        </div>
                     </div>
                 )}
                 

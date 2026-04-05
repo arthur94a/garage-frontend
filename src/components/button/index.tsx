@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx"
 
 
-type buttonThemes = 'blue' | 'purple' | 'red' | 'green' | 'ghost-purple'
+type buttonThemes = 'blue' | 'purple' | 'red' | 'green' | 'ghost-white' | 'ghost-purple' | 'ghost-red'
 
 type ButtonProps = {
     children: React.ReactNode
@@ -18,7 +18,9 @@ const buttonThemes = {
     purple: "bg-purple-400 text-white hover:bg-purple-500 focus:bg-purple-500",
     red: "bg-red-400 text-white hover:bg-red-500 focus:bg-red-500",
     green: "bg-green-600 text-white hover:bg-green-700 focus:bg-green-700",
-    "ghost-purple": "bg-transparent text-purple-400 focus:text-purple-100"
+    "ghost-white": "bg-transparent text-gray-400 focus:text-gray-100",
+    "ghost-purple": "bg-transparent text-purple-400 focus:text-purple-100",
+    "ghost-red": "bg-transparent text-red-400 focus:text-red-100",
 
 }
 
