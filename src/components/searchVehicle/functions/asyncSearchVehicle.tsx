@@ -1,8 +1,8 @@
 import axiosApi from "@/configs/axiosApi"
 
-export async function asyncGetYears(type: string, brandCode: string, modelCode: string) {
+export async function asyncGetVehicle(type: string, brandCode: string, modelCode: string, yearCode: string) {
      try {
-        const response = await axiosApi.get(`/catch/${type}/brands/${brandCode}/models/${modelCode}`)
+        const response = await axiosApi.get(`/catch/${type}/brands/${brandCode}/models/${modelCode}/years/${yearCode}`)
         return(response.data)
     } catch (error) {
         console.error(error)
