@@ -52,7 +52,7 @@ export function Header() {
                     {!userLoggedIn && showRegister && <CreateUser />}
                 </div>
 
-                <h1>Garage</h1>
+                <h1>FIPE Garage</h1>
             </header>
         </>
     )

@@ -6,9 +6,9 @@ import './index.css'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <UserContextProvider>
-      <App />
-    </UserContextProvider>
-  </StrictMode>,
+    <StrictMode>
+        <UserContextProvider>
+            <App />
+        </UserContextProvider>
+    </StrictMode>,
 )

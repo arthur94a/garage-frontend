@@ -82,14 +82,14 @@ export function FormSelect({type, brands}: FormSelectProps) {
 
     function translateVehicleType(type: VehicleType) {
         switch (type) {
-            case 'cars':
-                return 'carros'
-            case 'motorcycles':
-                return 'motos'
-            case 'trucks':
-                return 'caminhões'
-            default:
-                return ''
+        case 'cars':
+            return 'carros'
+        case 'motorcycles':
+            return 'motos'
+        case 'trucks':
+            return 'caminhões'
+        default:
+            return ''
         }
     }
 

@@ -19,7 +19,8 @@
     /* Path alias */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@hook/*": ["./src/context/userContext/hook/*"]
     },
 
     /* Linting */

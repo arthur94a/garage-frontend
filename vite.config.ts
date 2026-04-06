@@ -5,11 +5,12 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: {
-      // Define que '@' sempre aponta para a pasta src
-      '@': path.resolve(__dirname, './src'),
+    plugins: [react(), tailwindcss()],
+    resolve: {
+        alias: {
+            // Define que '@' sempre aponta para a pasta src
+            '@': path.resolve(__dirname, './src'),
+            '@hook': path.resolve(__dirname, './src/context/userContext/hook'),
+        },
     },
-  },
 })
