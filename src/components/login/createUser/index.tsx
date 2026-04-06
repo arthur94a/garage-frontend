@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axiosApi from '@/configs/axiosApi'
-import { Button } from '@/components/button'
-import { useUserContext } from "@/context/userContext/hook/useUserContext"
+import { Button } from '@component/button'
+import { useUserContext } from "@hook/useUserContext"
 
 
 export function CreateUser() {

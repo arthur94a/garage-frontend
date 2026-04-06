@@ -11,6 +11,7 @@ export default defineConfig({
             // Define que '@' sempre aponta para a pasta src
             '@': path.resolve(__dirname, './src'),
             '@hook': path.resolve(__dirname, './src/context/userContext/hook'),
+            '@component': path.resolve(__dirname, './src/components'),
         },
     },
 })

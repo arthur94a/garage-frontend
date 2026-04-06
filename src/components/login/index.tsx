@@ -1,7 +1,7 @@
-import axiosApi from "@/configs/axiosApi"
 import { useState } from "react"
-import { useUserContext } from "@/context/userContext/hook/useUserContext"
-import { Button } from "../button"
+import axiosApi from "@/configs/axiosApi"
+import { useUserContext } from "@hook/useUserContext"
+import { Button } from "@component/button"
 
 export function Login() {
     const [email, setEmail] = useState("")

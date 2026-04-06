@@ -1,4 +1,4 @@
-import { useUserContext } from "@/context/userContext/hook/useUserContext"
+import { useUserContext } from "@hook/useUserContext"
 
 export function Garage() {
     const { user } = useUserContext()

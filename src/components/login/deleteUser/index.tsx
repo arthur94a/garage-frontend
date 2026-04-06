@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { Button } from "@/components/button";
+import { Button } from "@component/button";
 import axiosApi from "@/configs/axiosApi";
-import { useUserContext } from "@/context/userContext/hook/useUserContext"
+import { useUserContext } from "@hook/useUserContext"
 
 export function DeleteUser() {
     const [feedback, setFeedback] = useState("")

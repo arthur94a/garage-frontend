@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { Login } from "../login"
-import { CreateUser } from "../login/createUser"
-import { useUserContext } from "@/context/userContext/hook/useUserContext"
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter"
-import { Button } from "../button"
-import { DeleteUser } from "../login/deleteUser"
+import { useUserContext } from "@hook/useUserContext"
+import { Login } from "@component/login"
+import { CreateUser } from "@component/login/createUser"
+import { DeleteUser } from "@component/login/deleteUser"
+import { Button } from "@component/button"
 
 export function Header() {
     const [showLogin, setShowLogin] = useState(false)

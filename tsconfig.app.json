@@ -20,7 +20,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@hook/*": ["./src/context/userContext/hook/*"]
+      "@hook/*": ["./src/context/userContext/hook/*"],
+      "@component/*": ["./src/components/*"],
     },
 
     /* Linting */

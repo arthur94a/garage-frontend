@@ -3,7 +3,7 @@ import { asyncGetModels } from "./functions/asyncGetModels"
 import type { Brand, VehicleType } from "."
 import { asyncGetYears } from "./functions/asyncGetYears"
 import { asyncGetVehicle } from "./functions/asyncSearchVehicle"
-import { Button } from "../button"
+import { Button } from "@component/button"
 import { Vehicle } from "./vehicle"
 
 type Model = {

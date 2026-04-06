@@ -1,8 +1,7 @@
 import { useState } from "react"
-
 import { FormSelect } from "./formSelect"
 import { asyncGetBrands } from "./functions/asyncGetBrands"
-import { Button } from "../button"
+import { Button } from "@component/button"
 
 export type VehicleType = 'cars' | 'motorcycles' | 'trucks'
 
