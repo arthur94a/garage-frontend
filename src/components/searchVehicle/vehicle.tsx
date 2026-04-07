@@ -2,13 +2,41 @@ import { useState } from "react"
 import type { Vehicle } from "./formSelect"
 import { useUserContext } from "@hook/useUserContext"
 import clsx from "clsx"
+import { asyncSaveVehicle } from "./functions/asyncSaveVehicle"
+import { asyncRemoveVehicle } from "./functions/asyncRemoveVehicle"
 
 export function Vehicle({ vehicleObj }: { vehicleObj: Vehicle }) {
     const [active, setActive] = useState(false)
+    const [saved, setSaved] = useState(false)
     const { user } = useUserContext()
+    
 
     function handleClick() {
         setActive(prev => !prev)
+    }
+
+    async function handleSave() {
+        try {
+            const result = await asyncSaveVehicle(user.user_id, vehicleObj.id, vehicleObj.year_code)
+            if (result) {
+                setActive(false)
+                setSaved(true)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    async function handleRemove() {
+        try {
+            const result = await asyncRemoveVehicle(user.user_id, vehicleObj.id, vehicleObj.year_code)
+            if (result) {
+                setActive(false)
+                setSaved(false)
+            }
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
@@ -29,22 +57,49 @@ export function Vehicle({ vehicleObj }: { vehicleObj: Vehicle }) {
             </article>
 
             {user.login && (
-                <span
-                    className={clsx(
-                        "absolute left-[95%] top-2",
-                        "py-1 px-4",
-                        "cursor-pointer",
-                        "text-black",
-                        "bg-green-300",
-                        "rounded",
-                        "z-0",
-                        "transition-transform duration-500 ease-in-out",
-                        active ? "transform translate-x-[0%]" : "transform translate-x-[-75%]",
-                    )}
-                    onClick={() => console.log('salvar')}
-                >
-          Salvar
-                </span>
+                <>
+                    <span
+                        className={clsx(
+                            "absolute left-[95%] top-2",
+                            "py-1 px-4",
+                            "cursor-pointer",
+                            "bg-green-300",
+                            "text-black",
+                            "rounded",
+                            "z-0",
+                            "transition-transform duration-500 ease-in-out",
+                            {
+                                "translate-x-0": active && !saved,
+                                "-translate-x-full": (active && saved) || (!active && saved),
+                                "-translate-x-3/4": !active && !saved,
+                            }
+                        )}
+                        onClick={handleSave}
+                    >
+                        Salvar
+                    </span>
+
+                    <span
+                        className={clsx(
+                            "absolute left-[95%] top-12",
+                            "py-1 px-4",
+                            "cursor-pointer",
+                            "bg-red-300",
+                            "text-black",
+                            "rounded",
+                            "z-0",
+                            "transition-transform duration-500 ease-in-out",
+                            {
+                                "translate-x-0": active && saved,
+                                "-translate-x-full": (active && !saved) || (!active && !saved),
+                                "-translate-x-3/4": !active && saved,
+                            }
+                        )}
+                        onClick={handleRemove}
+                    >
+                        Remover
+                    </span>
+                </>
             )}
         </div>
     )

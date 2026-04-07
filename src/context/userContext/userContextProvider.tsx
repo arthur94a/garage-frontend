@@ -5,7 +5,7 @@ export function UserContextProvider({ children }: { children: React.ReactNode })
     const sessionLoggedIn = 'loggedIn:1.0.0'
 
     const initialUser: User = {
-        user_id: "",
+        user_id: 0,
         email: "",
         name: "",
         login: false

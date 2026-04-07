@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export type User = {
-    user_id: string;
+    user_id: number;
     email: string;
     name: string;
     login: boolean;
