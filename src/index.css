@@ -118,6 +118,10 @@ option {
   cursor: pointer;
 }
 
+option {
+  background: #16171d;
+}
+
 select {
   padding: 4px 16px;
   outline: 1px solid gray;

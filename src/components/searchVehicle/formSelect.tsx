@@ -5,6 +5,8 @@ import { asyncGetYears } from "./functions/asyncGetYears"
 import { asyncGetVehicle } from "./functions/asyncGetVehicle"
 import { Button } from "@component/button"
 import { Vehicle } from "./vehicle"
+import { asyncUserHasVehicle } from "./functions/asyncUserHasVehicle"
+import { useUserContext } from "@hook/useUserContext"
 
 type Model = {
     created_at: string,
@@ -50,6 +52,9 @@ export function FormSelect({type, brands}: FormSelectProps) {
     const [models, setModels] = useState<Model[]>([])
     const [years, setYears] = useState<Year[]>([])
     const [vehicle, setVehicle] = useState<Vehicle | null>(null)
+    const [hasVehicle, setHasVehicle] = useState<boolean>(false)
+
+    const { user } = useUserContext()
 
     async function handleBrandChange(e: React.ChangeEvent<HTMLSelectElement>) {
         setSelectedBrand(e.target.value)
@@ -77,7 +82,12 @@ export function FormSelect({type, brands}: FormSelectProps) {
         if (!selectedBrand || !selectedModel || !selectedYear) return
 
         const data = await asyncGetVehicle(type, selectedBrand, selectedModel, selectedYear)
-        if (data) setVehicle(data)
+        const userHasVehicle = await asyncUserHasVehicle(user.user_id, data.id, data.year_code)
+
+        if (data) {
+            setVehicle(data)
+            setHasVehicle(userHasVehicle)
+        }
     }
 
     function translateVehicleType(type: VehicleType) {
@@ -142,7 +152,7 @@ export function FormSelect({type, brands}: FormSelectProps) {
                 <Button theme="green" type="submit" disabled={!selectedBrand || !selectedModel || !selectedYear}>Pesquisar</Button>
             </form>
 
-            {vehicle && <Vehicle vehicleObj={vehicle} />}
+            {vehicle && <Vehicle vehicleObj={vehicle} hasVehicle={hasVehicle} />}
         </>
     )
 }

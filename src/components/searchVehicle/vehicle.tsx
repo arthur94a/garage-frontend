@@ -5,11 +5,11 @@ import clsx from "clsx"
 import { asyncSaveVehicle } from "./functions/asyncSaveVehicle"
 import { asyncRemoveVehicle } from "./functions/asyncRemoveVehicle"
 
-export function Vehicle({ vehicleObj }: { vehicleObj: Vehicle }) {
-    const [active, setActive] = useState(false)
-    const [saved, setSaved] = useState(false)
+export function Vehicle({ vehicleObj, hasVehicle }: { vehicleObj: Vehicle, hasVehicle: boolean }) {
+    console.log(hasVehicle)
+    const [active, setActive] = useState<boolean>(false)
+    const [saved, setSaved] = useState<boolean>(hasVehicle)
     const { user } = useUserContext()
-    
 
     function handleClick() {
         setActive(prev => !prev)
