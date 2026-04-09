@@ -1,0 +1,26 @@
+services:
+  mvp-api-principal:
+    build:
+      context: ../mvp-api-principal
+      dockerfile: Dockerfile
+    container_name: mvp-api-principal
+    ports:
+      - "8000:8000"
+    networks:
+      - garage-bridge
+
+  garage-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: garage-frontend
+    depends_on:
+      - mvp-api-principal
+    ports:
+      - "8080:80"
+    networks:
+      - garage-bridge
+
+networks:
+  garage-bridge:
+    driver: bridge
