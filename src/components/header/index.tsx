@@ -5,6 +5,7 @@ import { Login } from "@component/login"
 import { CreateUser } from "@component/login/createUser"
 import { DeleteUser } from "@component/login/deleteUser"
 import { Button } from "@component/button"
+import { UpdateUser } from "../login/updateUser"
 
 export function Header() {
     const [showLogin, setShowLogin] = useState(false)
@@ -38,7 +39,10 @@ export function Header() {
 
                 {userLoggedIn && (
                     <div className="flex flex-row items-center justify-between gap-2 px-4">
-                        <DeleteUser />
+                        <div>
+                            <DeleteUser />
+                            <UpdateUser />
+                        </div>
 
                         <div className="flex items-center gap-4">
                             <span className="text-white">{capitalizeFirstLetter(user.name)}</span>

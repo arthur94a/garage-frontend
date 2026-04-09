@@ -12,18 +12,23 @@ export function Garage({ refreshKey = 0, onVehicleChanged }: { refreshKey?: numb
         const list = await asyncListVehicles({ user_id: user.user_id })
         setVehicles(list ?? [])
     }
-    
-    if (!user.login) return null
 
     useEffect(() => {
+        if (!user.login) {
+            setVehicles([])
+            return
+        }
+
         refreshVehicles()
-    }, [refreshKey])
+    }, [refreshKey, user.login, user.user_id])
+
+    if (!user.login) return null
 
     return (
         <div className="py-10 flex flex-col items-center">
             <h2>Meus veículos</h2>
 
-            <ul className="flex flex-wrap gap-4 justify-center mt-6">
+            <ul className="flex flex-col gap-4 items-center mt-6">
                 {vehicles.map(vehicle => {
                     return (
                         <li key={String(vehicle.id) + String(vehicle.year_code)}>
