@@ -11,7 +11,11 @@ export type Brand = {
   vehicle_type: VehicleType
 }
 
-export function SearchVehicle() {
+interface SearchVehicleProps {
+    onVehicleChanged?: () => void
+}
+
+export function SearchVehicle({ onVehicleChanged }: SearchVehicleProps) {
     const [vehicleType, setVehicleType] = useState<VehicleType>('cars')
     const [brands, setBrands] = useState<Brand[]>([])
     const hasBrands = brands.length > 0
@@ -36,7 +40,7 @@ export function SearchVehicle() {
                 <Button value={'trucks'} onClick={handleClick} theme="blue">Caminhões</Button>
             </div>
 
-            {hasBrands && <FormSelect type={vehicleType} brands={brands} />}
+            {hasBrands && <FormSelect type={vehicleType} brands={brands} onVehicleChanged={onVehicleChanged} />}
         </section>
     )
 }

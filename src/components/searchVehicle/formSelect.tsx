@@ -4,9 +4,9 @@ import type { Brand, VehicleType } from "."
 import { asyncGetYears } from "./functions/asyncGetYears"
 import { asyncGetVehicle } from "./functions/asyncGetVehicle"
 import { Button } from "@component/button"
-import { Vehicle } from "./vehicle"
 import { asyncUserHasVehicle } from "./functions/asyncUserHasVehicle"
 import { useUserContext } from "@hook/useUserContext"
+import { VehicleCard } from "../vehicleCard"
 
 type Model = {
     created_at: string,
@@ -43,9 +43,10 @@ export type Vehicle = {
 interface FormSelectProps {
     type: VehicleType
     brands: Brand[]
+    onVehicleChanged?: () => void
 }
 
-export function FormSelect({type, brands}: FormSelectProps) {
+export function FormSelect({type, brands, onVehicleChanged}: FormSelectProps) {
     const [selectedBrand, setSelectedBrand] = useState('')
     const [selectedModel, setSelectedModel] = useState('')
     const [selectedYear, setSelectedYear] = useState('')
@@ -152,7 +153,7 @@ export function FormSelect({type, brands}: FormSelectProps) {
                 <Button theme="green" type="submit" disabled={!selectedBrand || !selectedModel || !selectedYear}>Pesquisar</Button>
             </form>
 
-            {vehicle && <Vehicle vehicleObj={vehicle} hasVehicle={hasVehicle} />}
+            {vehicle && <VehicleCard vehicleObj={vehicle} hasVehicle={hasVehicle} onVehicleChanged={onVehicleChanged} />}
         </>
     )
 }

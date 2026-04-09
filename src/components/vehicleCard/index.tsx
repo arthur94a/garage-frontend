@@ -1,18 +1,34 @@
 import { useState } from "react"
-import type { Vehicle } from "./formSelect"
+import type { Vehicle } from "../searchVehicle/formSelect"
+
 import { useUserContext } from "@hook/useUserContext"
 import clsx from "clsx"
 import { asyncSaveVehicle } from "./functions/asyncSaveVehicle"
 import { asyncRemoveVehicle } from "./functions/asyncRemoveVehicle"
 
-export function Vehicle({ vehicleObj, hasVehicle }: { vehicleObj: Vehicle, hasVehicle: boolean }) {
-    console.log(hasVehicle)
+interface VehicleCardProps {
+    vehicleObj: Vehicle
+    hasVehicle?: boolean
+    onVehicleChanged?: () => void
+}
+
+export function VehicleCard({ vehicleObj, hasVehicle = false, onVehicleChanged }: VehicleCardProps) {
     const [active, setActive] = useState<boolean>(false)
     const [saved, setSaved] = useState<boolean>(hasVehicle)
     const { user } = useUserContext()
+    const [zActive, setZActive] = useState(false)
 
     function handleClick() {
-        setActive(prev => !prev)
+        if (!active) {
+            setActive(true)
+            setZActive(true)
+        } else {
+            setActive(false)
+
+            setTimeout(() => {
+                setZActive(false)
+            }, 500)
+        }
     }
 
     async function handleSave() {
@@ -21,6 +37,7 @@ export function Vehicle({ vehicleObj, hasVehicle }: { vehicleObj: Vehicle, hasVe
             if (result) {
                 setActive(false)
                 setSaved(true)
+                onVehicleChanged?.()
             }
         } catch (error) {
             console.error(error)
@@ -33,6 +50,7 @@ export function Vehicle({ vehicleObj, hasVehicle }: { vehicleObj: Vehicle, hasVe
             if (result) {
                 setActive(false)
                 setSaved(false)
+                onVehicleChanged?.()
             }
         } catch (error) {
             console.error(error)
@@ -40,10 +58,13 @@ export function Vehicle({ vehicleObj, hasVehicle }: { vehicleObj: Vehicle, hasVe
     }
 
     return (
-        <div className="relative mt-4">
+        <div className="relative mt-4 overflow-visible">
             <article
                 onClick={handleClick}
-                className="relative outline outline-gray-300 p-4 rounded-lg z-10 bg-zinc-900 cursor-pointer"
+                className={clsx(
+                    "relative outline outline-gray-300 p-4 rounded-lg bg-zinc-900 cursor-pointer",
+                    zActive ? "z-10" : "z-2"
+                )}
             >
                 <h3 className="font-bold text-amber-200">{vehicleObj.model}</h3>
 
@@ -66,7 +87,7 @@ export function Vehicle({ vehicleObj, hasVehicle }: { vehicleObj: Vehicle, hasVe
                             "bg-green-300",
                             "text-black",
                             "rounded",
-                            "z-0",
+                            zActive ? "z-3" : "z-1",
                             "transition-transform duration-500 ease-in-out",
                             {
                                 "translate-x-0": active && !saved,
@@ -87,7 +108,7 @@ export function Vehicle({ vehicleObj, hasVehicle }: { vehicleObj: Vehicle, hasVe
                             "bg-red-300",
                             "text-black",
                             "rounded",
-                            "z-0",
+                            zActive ? "z-3" : "z-1",
                             "transition-transform duration-500 ease-in-out",
                             {
                                 "translate-x-0": active && saved,
