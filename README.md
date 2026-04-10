@@ -43,6 +43,35 @@ Antes de iniciar, tenha instalado na sua máquina:
 
 	http://localhost:5173
 
+## Executando com Docker Compose
+
+O arquivo [garage-frontend/docker-compose.yml](garage-frontend/docker-compose.yml) sobe o frontend e a API backend juntos.
+
+1. Entre na pasta do frontend:
+
+	cd garage-frontend
+
+2. Suba os serviços:
+
+	docker compose up --build
+
+3. Acesse as aplicações:
+
+	Frontend: http://localhost:8080
+
+	Backend: http://localhost:8000
+
+	Swagger da API: http://localhost:8000/docs
+
+4. Para parar os containers:
+
+	docker compose down
+
+Observações:
+
+- O serviço `mvp-api-principal` monta a pasta `../mvp-api-principal/database` em `/app/database`.
+- Isso reutiliza o arquivo `database.db` já existente para persistência dos dados.
+
 ## Scripts disponíveis
 
 - npm run dev: inicia o servidor de desenvolvimento com hot reload.
@@ -63,6 +92,14 @@ Antes de iniciar, tenha instalado na sua máquina:
 2. Após autenticado, pode buscar veículos por tipo, marca, modelo e ano.
 3. O veículo selecionado pode ser salvo na garagem.
 4. A garagem lista os veículos salvos e permite removê-los.
+
+## API Externa Utilizada
+
+Este projeto utiliza a API pública da Tabela FIPE disponibilizada em:
+
+https://deividfortuna.github.io/fipe/v2/
+
+Ela é usada para consultar dados de marcas, modelos, anos e valores de veículos, que depois são exibidos no frontend e consumidos pelo backend conforme o fluxo da aplicação.
 
 ## Observações
 

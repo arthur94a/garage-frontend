@@ -6,6 +6,8 @@ services:
     container_name: mvp-api-principal
     ports:
       - "8000:8000"
+    volumes:
+      - ../mvp-api-principal/database:/app/database
     networks:
       - garage-bridge
 
