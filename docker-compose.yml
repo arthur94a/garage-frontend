@@ -1,13 +1,13 @@
 services:
-  mvp-api-principal:
+  garage-backend:
     build:
-      context: ../mvp-api-principal
+      context: ../garage-backend
       dockerfile: Dockerfile
-    container_name: mvp-api-principal
+    container_name: garage-backend
     ports:
       - "8000:8000"
     volumes:
-      - ../mvp-api-principal/database:/app/database
+      - ../garage-backend/database:/app/database
     networks:
       - garage-bridge
 
@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     container_name: garage-frontend
     depends_on:
-      - mvp-api-principal
+      - garage-backend
     ports:
       - "8080:80"
     networks:
