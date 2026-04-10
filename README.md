@@ -101,7 +101,36 @@ https://deividfortuna.github.io/fipe/v2/
 
 Ela é usada para consultar dados de marcas, modelos, anos e valores de veículos, que depois são exibidos no frontend e consumidos pelo backend conforme o fluxo da aplicação.
 
+### Rotas da API FIPE consumidas pelo backend
+
+O serviço `mvp-api-principal` consome as seguintes rotas da API FIPE (https://fipe.parallelum.com.br/api/v2/):
+
+- **/{vehicle_type}/brands/**
+	- Lista todas as marcas de um tipo de veículo (carros, motos, caminhões).
+- **/{vehicle_type}/brands/{brand_code}/models/**
+	- Lista todos os modelos de uma marca.
+- **/{vehicle_type}/brands/{brand_code}/models/{model_code}/years/**
+	- Lista todos os anos de um modelo.
+- **/{vehicle_type}/brands/{brand_code}/models/{model_code}/years/{year_code}**
+	- Detalhes de um veículo específico (inclui preço, combustível, etc).
+
+Tipos de veículos:
+- cars
+- motorcycles
+- trucks
+
+Exemplo de uso para carros:
+
+- `/cars/brands/`
+- `/cars/brands/26/models/`
+- `/cars/brands/26/models/6207/years/`
+- `/cars/brands/26/models/6207/years/2014-5`
+
 ## Observações
 
 - Se houver erro de conexão, confirme se a API backend está ativa na porta 8000.
 - Em ambientes diferentes, ajuste a baseURL de src/configs/axiosApi.tsx conforme necessário.
+
+## Representação Arquitetural
+
+![alt text](image.png)
